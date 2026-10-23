@@ -1,0 +1,21 @@
+{
+  "className": "Part",
+  "properties": {
+    "Shape": "Ball",
+    "Size": [1.5, 1.5, 1.5],
+    "Color": [0.1, 0.1, 0.1],
+    "Material": "SmoothPlastic",
+    "CanCollide": false
+  },
+  "children": [
+    {
+      "name": "BoomSound",
+      "className": "Sound",
+      "properties": {
+        "SoundId": "rbxasset://sounds/impact_explosion_03.mp3",
+        "Volume": 1,
+        "RollOffMaxDistance": 150
+      }
+    }
+  ]
+}
