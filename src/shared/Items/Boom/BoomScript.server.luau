@@ -5,7 +5,9 @@ local handle = tool:WaitForChild("Handle")
 
 local FUSE_TIME = 2 -- сколько секунд до "бума"
 local COOLDOWN = 3 -- через сколько секунд можно бросить снова
-local THROW_SPEED = 40
+local THROW_SPEED = 10
+local BLAST_RADIUS = 10 -- радиус взрыва в стадах (studs)
+local BLAST_PRESSURE = 1000000 -- сила отбрасывания (стандарт — 500000)
 
 local canThrow = true
 
@@ -28,7 +30,7 @@ tool.Activated:Connect(function()
 	boom.Name = "ThrownBoom"
 	boom.CanCollide = true
 	boom.CFrame = root.CFrame * CFrame.new(0, 1, -3) -- чуть впереди игрока
-	boom.AssemblyLinearVelocity = root.CFrame.LookVector * THROW_SPEED + Vector3.new(0, 25, 0)
+	boom.AssemblyLinearVelocity = root.CFrame.LookVector * THROW_SPEED + Vector3.new(0, 10, 0)
 	boom.Parent = workspace
 
 	-- Прячем шарик в руке, пока идёт перезарядка
@@ -37,7 +39,8 @@ tool.Activated:Connect(function()
 	task.delay(FUSE_TIME, function()
 		local explosion = Instance.new("Explosion")
 		explosion.Position = boom.Position
-		explosion.BlastRadius = 10
+		explosion.BlastRadius = BLAST_RADIUS
+		explosion.BlastPressure = BLAST_PRESSURE
 		-- 0 = никого не ломает и не убивает, только красиво отталкивает
 		explosion.DestroyJointRadiusPercent = 0
 		explosion.Parent = workspace
